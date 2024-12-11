@@ -105,76 +105,61 @@ public class Scrabble {
     // 1. The letters in the word are removed from the hand, which becomes smaller.
     // 2. The user gets the Scrabble points of the entered word.
     // 3. The user is prompted to enter another word, or '.' to end the hand. 
-	public static void playHand(String hand) {
-		int score = 0;
-		// Declares the variable in to refer to an object of type In, and initializes it to represent
-		// the stream of characters coming from the keyboard. Used for reading the user's inputs.   
-		In in = new In();
-		while (hand.length() > 0) {
-			System.out.println("Current Hand: " + MyString.spacedString(hand));
-			System.out.println("Enter a word, or '.' to finish playing this hand:");
-			// Reads the next "token" from the keyboard. A token is defined as a string of 
-			// non-whitespace characters. Whitespace is either space characters, or  
-			// end-of-line characters.
-			String input = in.readString();
-			if(input.equals(".")){
-				break;
-			}
-			if(MyString.subsetOf(input, hand) && isWordInDictionary(input)){
-				hand = MyString.remove(hand, input);
-				score += wordScore(input);
-			}
-			else {
-				System.out.println("Invalid word. Try again."); 
-			}
-			if (!canFormWord(hand, DICTIONARY)) {
-				System.out.println("No valid words can be formed with the remaining letters.");
-				break;
-			}
-			//// Replace the following break statement with code
-			//// that completes the hand playing loop
-		}
-		if (hand.length() == 0) {
-	        System.out.println("Ran out of letters. Total score: " + score + " points\n");
-		} else {
-			System.out.println("End of hand. Total score: " + score + " points");
-		}
-	}
-
-	public static boolean canFormWord(String hand, String[] dictionary) {
-		for (String word : dictionary) {
-			if (word != null && MyString.subsetOf(word, hand)) {
-				return true;
-			}
-		}
-		return false; 
-	}
 
 	// Plays a Scrabble game. Prompts the user to enter 'n' for playing a new hand, or 'e'
 	// to end the game. If the user enters any other input, writes an error message.
-	public static void playGame() {
-		// Initializes the dictionary
-    	init();
-		// The variable in is set to represent the stream of characters 
-		// coming from the keyboard. Used for getting the user's inputs.  
+	public static void playHand(String hand) {
+		int totalScore = 0;
 		In in = new In();
-
-		while(true) {
-			System.out.println("Enter n to deal a new hand, or e to end the game:");
-			// Gets the user's input, which is all the characters entered by 
-			// the user until the user enter the ENTER character.
+	
+		while (hand.length() > 0) {
+			System.out.println("Current Hand: " + MyString.spacedString(hand));
+			System.out.println("Enter a word, or '.' to finish playing this hand:");
 			String input = in.readString();
-			if(input.equals("e")){
+	
+			if (input.equals(".")) {
+				System.out.println("End of hand. Total score: " + totalScore + " points");
 				break;
 			}
-			if(input.equals("n")){
-				String hand = createHand();
-				playHand(hand);
+	
+			if (MyString.subsetOf(input, hand)) {
+				if (isWordInDictionary(input)) {
+					int score = wordScore(input);
+					totalScore += score;
+					hand = MyString.remove(hand, input);
+					System.out.println(input + " earned " + score + " points. Score: " + totalScore + " points\n");
+				} else {
+					System.out.println("No such word in the dictionary. Try again.");
+				}
+			} else {
+				System.out.println("Invalid word. Try again.");
 			}
-			//// Replace the following break statement with code
-			//// that completes the game playing loop
+		}
+	
+		if (hand.isEmpty()) {
+			System.out.println("End of hand. Total score: " + totalScore + " points");
 		}
 	}
+	
+	public static void playGame() {
+		init();
+		In in = new In();
+	
+		while (true) {
+			System.out.println("Enter n to deal a new hand, or e to end the game:");
+			String input = in.readString();
+	
+			if (input.equals("n")) {
+				String hand = createHand();
+				playHand(hand);
+			} else if (input.equals("e")) {
+				break;
+			} else {
+				System.out.println("Invalid input. Please enter 'n' or 'e'.");
+			}
+		}
+	}
+	
 
 	public static void main(String[] args) {
 		//// Uncomment the test you want to run
