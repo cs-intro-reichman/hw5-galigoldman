@@ -49,7 +49,15 @@ public class Scrabble {
 	// Checks if the given word is in the dictionary.
 	public static boolean isWordInDictionary(String word) {
 		//// Replace the following statement with your code
-		return false;
+		boolean inside=false;
+		int i;
+		for(i=0; i<DICTIONARY.length; i++){
+			if(DICTIONARY[i].equals(word)){
+				inside=true;
+				break;
+			}
+		}
+		return inside;
 	}
 	
 	// Returns the Scrabble score of the given word.
@@ -57,7 +65,14 @@ public class Scrabble {
 	// If the word includes the sequence "runi", adds 1000 points to the game.
 	public static int wordScore(String word) {
 		//// Replace the following statement with your code
-		return 0;
+		int score=0;
+		int letterIndex;
+		int i;
+		for(i=0; i< HAND_SIZE; i++){
+			letterIndex = (int) word.charAt(i) - 98;
+			score += SCRABBLE_LETTER_VALUES[letterIndex];
+		}
+		return score;
 	}
 
 	// Creates a random hand of length (HAND_SIZE - 2) and then inserts
@@ -65,7 +80,11 @@ public class Scrabble {
 	// (these two vowels make it easier for the user to construct words)
 	public static String createHand() {
 		//// Replace the following statement with your code
-		return null;
+		String hand;
+		hand = MyString.randomStringOfLetters(HAND_SIZE - 2);
+		hand = MyString.insertRandomly('a', hand);
+		hand = MyString.insertRandomly('e', hand);
+		return hand;
 	}
 	
     // Runs a single hand in a Scrabble game. Each time the user enters a valid word:
@@ -85,6 +104,13 @@ public class Scrabble {
 			// non-whitespace characters. Whitespace is either space characters, or  
 			// end-of-line characters.
 			String input = in.readString();
+			if(input.equals(".")){
+				break;
+			}
+			if(MyString.subsetOf(input, hand) && isWordInDictionary(input)){
+				hand = MyString.remove(hand, input);
+				score += wordScore(input);
+			}
 			//// Replace the following break statement with code
 			//// that completes the hand playing loop
 			break;
@@ -110,6 +136,13 @@ public class Scrabble {
 			// Gets the user's input, which is all the characters entered by 
 			// the user until the user enter the ENTER character.
 			String input = in.readString();
+			if(input.equals('e')){
+				break;
+			}
+			if(input.equals('n')){
+				String hand = createHand();
+				playHand(hand);
+			}
 			//// Replace the following break statement with code
 			//// that completes the game playing loop
 			break;

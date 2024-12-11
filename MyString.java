@@ -122,15 +122,15 @@ public class MyString {
      */
     public static String remove(String str1, String str2) {
         int i,j;
-        for(i=0; i<str1.length(); i++){
-            for(j=0; j<str2.length(); j++){
-                if(str2.charAt(j)==str1.charAt(i)){
-                    str2=str2.substring(0, j) + str2.substring(j + 1);
+        for(i=0; i<str2.length(); i++){
+            for(j=0; j<str1.length(); j++){
+                if(str1.charAt(j)==str2.charAt(i)){
+                    str1=str1.substring(0, j) + str1.substring(j + 1);
                     break;
                 }
             }
         }
-        return str2;
+        return str1;
     }
 
     /**
