@@ -69,6 +69,9 @@ public class Scrabble {
 		int letter;
 		int letterIndex;
 		int i;
+		if (word == null || word.isEmpty()) {
+			return 0;
+		}
 		for(i=0; i< word.length() ; i++){
 			letter = (int) word.charAt(i);
 			if( letter <= 122 && letter >= 97){
@@ -140,16 +143,15 @@ public class Scrabble {
 			// Gets the user's input, which is all the characters entered by 
 			// the user until the user enter the ENTER character.
 			String input = in.readString();
-			if(input.equals('e')){
+			if(input.equals("e")){
 				break;
 			}
-			if(input.equals('n')){
+			if(input.equals("n")){
 				String hand = createHand();
 				playHand(hand);
 			}
 			//// Replace the following break statement with code
 			//// that completes the game playing loop
-			break;
 		}
 	}
 
