@@ -127,6 +127,10 @@ public class Scrabble {
 			else {
 				System.out.println("Invalid word. Try again."); 
 			}
+			if (canFormWord(hand, DICTIONARY)) {
+				System.out.println("No valid words can be formed with the remaining letters.");
+				break; // סיום היד
+			}
 			//// Replace the following break statement with code
 			//// that completes the hand playing loop
 		}
@@ -135,6 +139,15 @@ public class Scrabble {
 		} else {
 			System.out.println("End of hand. Total score: " + score + " points");
 		}
+	}
+
+	public static boolean canFormWord(String hand, String[] dictionary) {
+		for (String word : dictionary) {
+			if (word != null && MyString.subsetOf(word, hand)) {
+				return true;
+			}
+		}
+		return false; 
 	}
 
 	// Plays a Scrabble game. Prompts the user to enter 'n' for playing a new hand, or 'e'
