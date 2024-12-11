@@ -80,7 +80,7 @@ public class MyString {
     public static String spacedString(String str) {
         //// Replace the following statement with your code
         int i;
-        String newStr= " ";
+        String newStr= "";
         if(str==null || str.isEmpty()){
             return "";
         }
