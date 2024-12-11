@@ -69,10 +69,10 @@ public class Scrabble {
 		int letter;
 		int letterIndex;
 		int i;
-		for(i=0; i< HAND_SIZE; i++){
+		for(i=0; i< word.length() ; i++){
 			letter = (int) word.charAt(i);
 			if( letter <= 122 && letter >= 97){
-				letterIndex = letter - 98;
+				letterIndex = letter - 97;
 				score += SCRABBLE_LETTER_VALUES[letterIndex];
 			}
 		}
