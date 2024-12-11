@@ -52,10 +52,7 @@ public class Scrabble {
 		boolean inside=false;
 		int i;
 		for(i=0; i<DICTIONARY.length; i++){
-			if(DICTIONARY[i]==null){
-				break;
-			}
-			if(DICTIONARY[i].equals(word)){
+			if(DICTIONARY[i] != null && DICTIONARY[i].equals(word)){
 				inside=true;
 				break;
 			}
