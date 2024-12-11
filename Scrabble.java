@@ -127,15 +127,16 @@ public class Scrabble {
 			else {
 				System.out.println("Invalid word. Try again."); 
 			}
-			if (canFormWord(hand, DICTIONARY)) {
+			if (!canFormWord(hand, DICTIONARY)) {
 				System.out.println("No valid words can be formed with the remaining letters.");
-				break; // סיום היד
+				break;
 			}
 			//// Replace the following break statement with code
 			//// that completes the hand playing loop
 		}
 		if (hand.length() == 0) {
 	        System.out.println("Ran out of letters. Total score: " + score + " points");
+			System.out.println("\n");
 		} else {
 			System.out.println("End of hand. Total score: " + score + " points");
 		}
