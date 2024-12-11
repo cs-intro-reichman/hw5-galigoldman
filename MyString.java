@@ -81,8 +81,8 @@ public class MyString {
         //// Replace the following statement with your code
         int i;
         String newStr= " ";
-        if(str==null){
-            return null;
+        if(str==null || str.isEmpty()){
+            return "";
         }
         newStr += str.charAt(0); 
         for(i=1; i<str.length(); i++){

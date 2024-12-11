@@ -52,6 +52,9 @@ public class Scrabble {
 		boolean inside=false;
 		int i;
 		for(i=0; i<DICTIONARY.length; i++){
+			if(DICTIONARY[i]==null){
+				break;
+			}
 			if(DICTIONARY[i].equals(word)){
 				inside=true;
 				break;
@@ -66,11 +69,15 @@ public class Scrabble {
 	public static int wordScore(String word) {
 		//// Replace the following statement with your code
 		int score=0;
+		int letter;
 		int letterIndex;
 		int i;
 		for(i=0; i< HAND_SIZE; i++){
-			letterIndex = (int) word.charAt(i) - 98;
-			score += SCRABBLE_LETTER_VALUES[letterIndex];
+			letter = (int) word.charAt(i);
+			if( letter <= 122 && letter >= 97){
+				letterIndex = letter - 98;
+				score += SCRABBLE_LETTER_VALUES[letterIndex];
+			}
 		}
 		return score;
 	}
