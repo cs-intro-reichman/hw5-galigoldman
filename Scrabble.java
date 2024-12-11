@@ -83,6 +83,9 @@ public class Scrabble {
 		if(MyString.subsetOf("runi", word)){
 			score+= 1000;
 		}
+		if(word.length()==HAND_SIZE){
+			score+=50;
+		}
 		return score;
 	}
 
@@ -103,12 +106,10 @@ public class Scrabble {
     // 2. The user gets the Scrabble points of the entered word.
     // 3. The user is prompted to enter another word, or '.' to end the hand. 
 	public static void playHand(String hand) {
-		int n = hand.length();
 		int score = 0;
 		// Declares the variable in to refer to an object of type In, and initializes it to represent
 		// the stream of characters coming from the keyboard. Used for reading the user's inputs.   
 		In in = new In();
-		int time=0;
 		while (hand.length() > 0) {
 			System.out.println("Current Hand: " + MyString.spacedString(hand));
 			System.out.println("Enter a word, or '.' to finish playing this hand:");
@@ -120,12 +121,11 @@ public class Scrabble {
 				break;
 			}
 			if(MyString.subsetOf(input, hand) && isWordInDictionary(input)){
-				if(time == 0 && n == input.length()){
-					score += 50;
-				}
-				time++;
 				hand = MyString.remove(hand, input);
 				score += wordScore(input);
+			}
+			else {
+				System.out.println("Invalid word. Try again."); 
 			}
 			//// Replace the following break statement with code
 			//// that completes the hand playing loop
