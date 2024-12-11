@@ -79,6 +79,10 @@ public class Scrabble {
 				score += SCRABBLE_LETTER_VALUES[letterIndex];
 			}
 		}
+		score = score * word.length();
+		if(MyString.subsetOf("runi", word)){
+			score+= 1000;
+		}
 		return score;
 	}
 
@@ -104,6 +108,7 @@ public class Scrabble {
 		// Declares the variable in to refer to an object of type In, and initializes it to represent
 		// the stream of characters coming from the keyboard. Used for reading the user's inputs.   
 		In in = new In();
+		int time=0;
 		while (hand.length() > 0) {
 			System.out.println("Current Hand: " + MyString.spacedString(hand));
 			System.out.println("Enter a word, or '.' to finish playing this hand:");
@@ -115,12 +120,15 @@ public class Scrabble {
 				break;
 			}
 			if(MyString.subsetOf(input, hand) && isWordInDictionary(input)){
+				if(time == 0 && n == input.length()){
+					score += 50;
+				}
+				time++;
 				hand = MyString.remove(hand, input);
 				score += wordScore(input);
 			}
 			//// Replace the following break statement with code
 			//// that completes the hand playing loop
-			break;
 		}
 		if (hand.length() == 0) {
 	        System.out.println("Ran out of letters. Total score: " + score + " points");
