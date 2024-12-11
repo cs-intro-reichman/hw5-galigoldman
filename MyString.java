@@ -80,7 +80,10 @@ public class MyString {
     public static String spacedString(String str) {
         //// Replace the following statement with your code
         int i;
-        String newStr= "";
+        String newStr= " ";
+        if(str==null){
+            return null;
+        }
         newStr += str.charAt(0); 
         for(i=1; i<str.length(); i++){
                     newStr= newStr + " " + str.charAt(i);
